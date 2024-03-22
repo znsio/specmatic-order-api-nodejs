@@ -1,0 +1,10 @@
+node_modules
+.nyc_output
+dist
+.specmatic
+.vscode
+kafka-logs
+coverage
+.idea
+.DS_Store
+build/*
