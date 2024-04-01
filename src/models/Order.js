@@ -23,27 +23,26 @@ class Order {
 
   static addDefaultOrders() {
     const insert = db.prepare(
-      "INSERT INTO orders (id, productid, count, status) VALUES (@id, @productid, @count, @status)"
+      "INSERT INTO orders (id, productid, count, status) VALUES (@id, @productid, @count, @status)",
     );
 
     const insertMany = db.transaction((orders) => {
-        for (const order of orders) insert.run(order);
-    }
-    );
+      for (const order of orders) insert.run(order);
+    });
 
     insertMany([
-        {
-            id: 10,
-            productid: 10,
-            count: 2,
-            status: "pending",
-        },
-        {
-            id:20,
-            productid: 10,
-            count: 1,
-            status: "pending",
-        },
+      {
+        id: 10,
+        productid: 10,
+        count: 2,
+        status: "pending",
+      },
+      {
+        id: 20,
+        productid: 10,
+        count: 1,
+        status: "pending",
+      },
     ]);
   }
 
@@ -59,12 +58,12 @@ class Order {
     let query = "SELECT * FROM orders WHERE 1 = 1";
     let params = {};
     if (id) {
-        query += " AND id = @id";
-        params = { ...params, id };
+      query += " AND id = @id";
+      params = { ...params, id };
     }
     if (status) {
-        query += " AND status = @status";
-        params = { ...params, status };
+      query += " AND status = @status";
+      params = { ...params, status };
     }
     const stmt = db.prepare(query);
     const orders = stmt.all(params);
@@ -85,7 +84,8 @@ class Order {
   }
 
   static updatedOrderById(id, order) {
-    const query = "UPDATE orders SET productid = ?, count = ?, status = ? WHERE id = ?";
+    const query =
+      "UPDATE orders SET productid = ?, count = ?, status = ? WHERE id = ?";
     const stmt = db.prepare(query);
     const info = stmt.run(order.productid, order.count, order.status, id);
     return info.changes > 0;
@@ -99,7 +99,7 @@ class Order {
   }
 
   static clearOrders() {
-    const stmt = db.prepare('DELETE FROM orders');
+    const stmt = db.prepare("DELETE FROM orders");
     stmt.run();
   }
 }

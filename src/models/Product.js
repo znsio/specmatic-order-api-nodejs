@@ -23,27 +23,26 @@ class Product {
 
   static addDefaultProducts() {
     const insert = db.prepare(
-      "INSERT INTO products (id, name, type, inventory) VALUES (@id, @name, @type, @inventory)"
+      "INSERT INTO products (id, name, type, inventory) VALUES (@id, @name, @type, @inventory)",
     );
 
     const insertMany = db.transaction((products) => {
-        for (const product of products) insert.run(product);
-    }
-    );
+      for (const product of products) insert.run(product);
+    });
 
     insertMany([
-        {
-            id: 10,
-            name: "XYZ Phone",
-            type: "gadget",
-            inventory: 10,
-        },
-        {
-            id:20,
-            name: "Gemini",
-            type: "dog",
-            inventory: 10,
-        },
+      {
+        id: 10,
+        name: "XYZ Phone",
+        type: "gadget",
+        inventory: 10,
+      },
+      {
+        id: 20,
+        name: "Gemini",
+        type: "dog",
+        inventory: 10,
+      },
     ]);
   }
 
@@ -84,14 +83,15 @@ class Product {
   }
 
   static updateProductById(id, product) {
-    const query = "UPDATE products SET name = ?, type = ?, inventory = ? WHERE id = ?";
+    const query =
+      "UPDATE products SET name = ?, type = ?, inventory = ? WHERE id = ?";
     const stmt = db.prepare(query);
     const info = stmt.run(product.name, product.type, product.inventory, id);
     return info.changes > 0;
   }
 
   static clearProducts() {
-    const stmt = db.prepare('DELETE FROM products');
+    const stmt = db.prepare("DELETE FROM products");
     stmt.run();
   }
 }
