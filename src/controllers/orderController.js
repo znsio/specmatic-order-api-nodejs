@@ -1,6 +1,6 @@
 const express = require("express");
-const Order = require("../models/Order");
 const { z } = require("zod");
+const orderService = require("../services/orderService");
 
 const router = express.Router();
 
@@ -18,7 +18,7 @@ const addOrderParser = z.object({
 router.post("/", async (req, res) => {
   try {
     const { count, productid } = addOrderParser.parse(req.body);
-    const order = Order.addOrder(productid, count);
+    const order = orderService.addOrder(productid, count);
     res.status(200).json(order);
   } catch (error) {
     console.error(error);
@@ -42,10 +42,10 @@ router.get("/", async (req, res) => {
     const { id, status } = searchOrderParser.parse(req.query);
 
     if (!id && !status) {
-      const orders = Order.getAllOrders();
+      const orders = orderService.getAllOrders();
       return res.status(200).json(orders);
     } else {
-      const orders = Order.searchOrders(id, status);
+      const orders = orderService.searchOrders(id, status);
 
       res.status(200).json(orders);
     }
@@ -69,7 +69,7 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     const id = parseInt(req.params.id);
-    const order = Order.getOrderById(id);
+    const order = orderService.getOrderById(id);
     if (!order) {
       return res.status(404).json({
         timestamp: new Date().toISOString(),
@@ -101,7 +101,11 @@ router.post("/:id", async (req, res) => {
   try {
     const id = parseInt(req.params.id);
     const { status, count, productid } = addOrderParser.parse(req.body);
-    const order = Order.updatedOrderById(id, { productid, count, status });
+    const order = orderService.updatedOrderById(id, {
+      productid,
+      count,
+      status,
+    });
     res.status(200).contentType("text/plain").json(order);
   } catch (error) {
     console.error(error);
@@ -122,7 +126,7 @@ router.post("/:id", async (req, res) => {
 router.delete("/:id", async (req, res) => {
   try {
     const id = parseInt(req.params.id);
-    const order = Order.deleteOrderById(id);
+    const order = orderService.deleteOrderById(id);
     res.status(200).contentType("text/plain").send(order);
   } catch (error) {
     console.error(error);

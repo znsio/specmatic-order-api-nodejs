@@ -8,5 +8,7 @@ let appServer;
 
 appServer = await startAppServer(APP_PORT);
 await specmatic.testWithApiCoverage(getApp(), APP_HOST, APP_PORT);
+// test Parameter provided to showTestResults is global test function from jest
+// eslint-disable-next-line no-undef
 specmatic.showTestResults(test);
 await stopAppServer(appServer);

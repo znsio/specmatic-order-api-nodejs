@@ -1,6 +1,6 @@
 const express = require("express");
-const Product = require("../models/Product");
 const { z } = require("zod");
+const productService = require("../services/productService");
 
 const router = express.Router();
 
@@ -27,7 +27,7 @@ router.get("/", async (req, res) => {
       return res.status(500).json("unknown");
     }
 
-    const products = await Product.searchProducts(name, type);
+    const products = await productService.searchProducts(name, type);
     res.json(products);
   } catch (error) {
     console.error(error);
@@ -49,7 +49,7 @@ router.get("/", async (req, res) => {
 router.post("/", async (req, res) => {
   try {
     const { name, type, inventory } = req.body;
-    const product = Product.addProduct(name, type, inventory);
+    const product = productService.addProduct(name, type, inventory);
     res.status(200).json(product);
   } catch (error) {
     console.error(error);
@@ -71,7 +71,7 @@ router.post("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     const { id } = idParser.parse(req.params);
-    const product = Product.getProductById(Number(id));
+    const product = productService.getProductById(Number(id));
 
     if (!product) {
       res.status(404).json({
@@ -102,7 +102,7 @@ router.get("/:id", async (req, res) => {
 router.delete("/:id", async (req, res) => {
   try {
     const { id } = idParser.parse(req.params);
-    const product = Product.getProductById(Number(id));
+    const product = productService.getProductById(Number(id));
 
     if (!product) {
       res.status(404).json({
@@ -134,7 +134,7 @@ router.post("/:id", async (req, res) => {
   try {
     const { id } = idParser.parse(req.params);
     const { name, type, inventory } = addProductParser.parse(req.body);
-    const product = Product.updateProductById(Number(id), {
+    const product = productService.updateProductById(Number(id), {
       name,
       type,
       inventory,
