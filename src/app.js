@@ -31,10 +31,16 @@ app.all("*", function (req, res) {
 
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
-  res.status(err.status || 500).json({
+  const status = err.status || 500;
+
+  if (status !== 400) {
+    console.log(err);
+  }
+
+  res.status(status).json({
     timestamp: new Date().toISOString(),
-    status: 400,
-    error: "Bad Request",
+    status: status,
+    error: err.name || "Error",
     message: err.message,
   });
 });
