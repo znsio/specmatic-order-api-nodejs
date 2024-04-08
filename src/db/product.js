@@ -82,12 +82,12 @@ const product = {
   },
 };
 
-const initializeProducts = () => {
+const initializeProductsTable = () => {
   product.createProductsTable();
   product.clearProducts();
   product.addDefaultProducts();
 };
 
-initializeProducts();
+initializeProductsTable();
 
 module.exports = product;

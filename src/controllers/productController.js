@@ -51,9 +51,9 @@ router.get("/:id", async (req, res) => {
 
 router.delete("/:id", async (req, res) => {
   const { id } = idParser.parse(req.params);
-  const product = productService.getProductById(Number(id));
+  const isDeleteSuccessful = productService.getProductById(Number(id));
 
-  if (!product) {
+  if (!isDeleteSuccessful) {
     errorResponse(res, 404, "Not Found", `Product with id ${id} not found`);
     return;
   }
@@ -66,12 +66,12 @@ router.delete("/:id", async (req, res) => {
 router.post("/:id", async (req, res) => {
   const { id } = idParser.parse(req.params);
   const { name, type, inventory } = addProductParser.parse(req.body);
-  const product = productService.updateProductById(Number(id), {
+  const isUpdateSuccessful = productService.updateProductById(Number(id), {
     name,
     type,
     inventory,
   });
-  if (!product) {
+  if (!isUpdateSuccessful) {
     errorResponse(res, 404, "Not Found", `Product with id ${id} not found`);
     return;
   }

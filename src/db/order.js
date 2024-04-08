@@ -88,12 +88,12 @@ const order = {
     stmt.run();
   },
 };
-const initializeOrders = () => {
+const initializeOrdersTable = () => {
   order.createOrdersTable();
   order.clearOrders();
   order.addDefaultOrders();
 };
 
-initializeOrders();
+initializeOrdersTable();
 
 module.exports = order;

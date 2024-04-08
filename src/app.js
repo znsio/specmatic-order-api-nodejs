@@ -24,17 +24,16 @@ app.use(
 app.use("/products", productsController);
 app.use("/orders", ordersController);
 
-// eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
-  const status = err.status || 500;
-
-  if (status !== 400) {
+  if (err.status !== 400) {
     console.log("ERROR", err);
+    next(err);
+    return;
   }
 
   errorResponse(
     res,
-    status,
+    err.status,
     err.name || "Error",
     err.message || "An error occurred",
   );
