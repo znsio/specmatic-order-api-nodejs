@@ -32,7 +32,7 @@ const product = {
       {
         id: 20,
         name: "Gemini",
-        type: "dog",
+        type: "other",
         inventory: 10,
       },
     ]);

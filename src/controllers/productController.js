@@ -78,7 +78,6 @@ router.get("/:id", async (req, res) => {
         timestamp: new Date().toISOString(),
         status: 404,
         error: "Not Found",
-        path: req.path,
       });
     }
     res.status(200).json(product);

@@ -1,9 +1,8 @@
 {
   "sources": [
     {
-      "provider": "git",
-      "repository": "https://github.com/znsio/specmatic-order-contracts.git",
-      "test": ["in/specmatic/examples/store/api_order_v1.yaml"]
+      "provider": "filesystem",
+      "test": ["./specs/api_order_v3.yaml"]
     }
   ],
   "report": {
