@@ -29,4 +29,14 @@ app.all("*", function (req, res) {
   });
 });
 
+// eslint-disable-next-line no-unused-vars
+app.use((err, req, res, next) => {
+  res.status(err.status || 500).json({
+    timestamp: new Date().toISOString(),
+    status: 400,
+    error: "Bad Request",
+    message: err.message,
+  });
+});
+
 module.exports = app;
