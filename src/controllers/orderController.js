@@ -22,18 +22,6 @@ router.post("/", async (req, res) => {
     res.status(200).json(order);
   } catch (error) {
     console.error(error);
-
-    if (error instanceof Error) {
-      res.status(400).json({
-        timestamp: new Date().toISOString(),
-        status: 400,
-        error: "Bad Request",
-        message: error.message,
-        path: req.path,
-      });
-    } else {
-      res.status(500).json("unknown");
-    }
   }
 });
 
@@ -51,18 +39,6 @@ router.get("/", async (req, res) => {
     }
   } catch (error) {
     console.error(error);
-
-    if (error instanceof Error) {
-      res.status(400).json({
-        timestamp: new Date().toISOString(),
-        status: 400,
-        error: "Bad Request",
-        message: error.message,
-        path: req.path,
-      });
-    } else {
-      res.status(500).json("unknown");
-    }
   }
 });
 
@@ -81,18 +57,6 @@ router.get("/:id", async (req, res) => {
     res.status(200).json(order);
   } catch (error) {
     console.error(error);
-
-    if (error instanceof Error) {
-      res.status(400).json({
-        timestamp: new Date().toISOString(),
-        status: 400,
-        error: "Bad Request",
-        message: error.message,
-        path: req.path,
-      });
-    } else {
-      res.status(500).json("unknown");
-    }
   }
 });
 
@@ -108,18 +72,6 @@ router.post("/:id", async (req, res) => {
     res.status(200).contentType("text/plain").json(order);
   } catch (error) {
     console.error(error);
-
-    if (error instanceof Error) {
-      res.status(400).json({
-        timestamp: new Date().toISOString(),
-        status: 400,
-        error: "Bad Request",
-        message: error.message,
-        path: req.path,
-      });
-    } else {
-      res.status(500).json("unknown");
-    }
   }
 });
 router.delete("/:id", async (req, res) => {
@@ -129,18 +81,6 @@ router.delete("/:id", async (req, res) => {
     res.status(200).contentType("text/plain").send(order);
   } catch (error) {
     console.error(error);
-
-    if (error instanceof Error) {
-      res.status(400).json({
-        timestamp: new Date().toISOString(),
-        status: 400,
-        error: "Bad Request",
-        message: error.message,
-        path: req.path,
-      });
-    } else {
-      res.status(500).json("unknown");
-    }
   }
 });
 
