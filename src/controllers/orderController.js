@@ -48,17 +48,24 @@ router.get("/:id", async (req, res) => {
 router.post("/:id", async (req, res) => {
   const id = parseInt(req.params.id);
   const { status, count, productid } = addOrderParser.parse(req.body);
-  const order = orderService.updatedOrderById(id, {
+  orderService.updatedOrderById(id, {
     productid,
     count,
     status,
   });
-  res.status(200).contentType("text/plain").json(order);
+  res
+    .status(200)
+    .type("text/plain")
+    .send(`Successfully updated order with id ${id}`);
 });
+
 router.delete("/:id", async (req, res) => {
   const id = parseInt(req.params.id);
-  const order = orderService.deleteOrderById(id);
-  res.status(200).contentType("text/plain").send(order);
+  orderService.deleteOrderById(id);
+  res
+    .status(200)
+    .type("text/plain")
+    .send(`Successfully deleted order with id ${id}`);
 });
 
 module.exports = router;

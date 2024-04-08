@@ -57,7 +57,10 @@ router.delete("/:id", async (req, res) => {
     errorResponse(res, 404, "Not Found", `Product with id ${id} not found`);
     return;
   }
-  res.status(200).contentType("text/plain").send("");
+  res
+    .status(200)
+    .type("text/plain")
+    .send(`Successfully deleted product id: ${id}`);
 });
 
 router.post("/:id", async (req, res) => {
@@ -72,7 +75,10 @@ router.post("/:id", async (req, res) => {
     errorResponse(res, 404, "Not Found", `Product with id ${id} not found`);
     return;
   }
-  res.status(200).contentType("text/plain").json(product);
+  res
+    .status(200)
+    .type("text/plain")
+    .send(`Successfully updated product with id ${id}`);
 });
 
 module.exports = router;
