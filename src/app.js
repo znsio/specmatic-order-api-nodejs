@@ -3,7 +3,7 @@ const express = require("express");
 const productsController = require("./controllers/productController");
 const ordersController = require("./controllers/orderController");
 const bodyParser = require("body-parser");
-// const OpenApiValidator = require("express-openapi-validator");
+const OpenApiValidator = require("express-openapi-validator");
 
 const app = express();
 
@@ -12,15 +12,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// app.use(
-//   OpenApiValidator.middleware({
-//     apiSpec:
-//       // ".specmatic/repos/specmatic-order-contracts/in/specmatic/examples/store/api_order_v1.yaml",
-//       "./specs/api_order_v1.yaml",
-//     validateRequests: false,
-//     validateResponses: false,
-//   }),
-// );
+app.use(
+  OpenApiValidator.middleware({
+    apiSpec: "./specs/api_order_v3.yaml",
+    validateRequests: true,
+    validateResponses: false,
+  }),
+);
 
 app.use("/products", productsController);
 app.use("/orders", ordersController);
