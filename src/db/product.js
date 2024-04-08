@@ -1,7 +1,7 @@
 const db = require("./db");
 
 const product = {
-  initializeProducts: () => {
+  createProductsTable: () => {
     const query = `
         CREATE TABLE IF NOT EXISTS products (
           id INTEGER PRIMARY KEY,
@@ -82,8 +82,12 @@ const product = {
   },
 };
 
-product.initializeProducts();
-product.clearProducts();
-product.addDefaultProducts();
+const initializeProducts = () => {
+  product.createProductsTable();
+  product.clearProducts();
+  product.addDefaultProducts();
+};
+
+initializeProducts();
 
 module.exports = product;

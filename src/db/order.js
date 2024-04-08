@@ -1,7 +1,7 @@
 const db = require("./db");
 
 const order = {
-  initializeOrders: () => {
+  createOrdersTable: () => {
     const query = `
         CREATE TABLE IF NOT EXISTS orders (
           id INTEGER PRIMARY KEY,
@@ -88,9 +88,12 @@ const order = {
     stmt.run();
   },
 };
+const initializeOrders = () => {
+  order.createOrdersTable();
+  order.clearOrders();
+  order.addDefaultOrders();
+};
 
-order.initializeOrders();
-order.clearOrders();
-order.addDefaultOrders();
+initializeOrders();
 
 module.exports = order;
