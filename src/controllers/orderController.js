@@ -1,6 +1,7 @@
 const express = require("express");
 const { z } = require("zod");
 const orderService = require("../services/orderService");
+const errorResponse = require("../util/errorResponse");
 
 const router = express.Router();
 
@@ -38,11 +39,8 @@ router.get("/:id", async (req, res) => {
   const id = parseInt(req.params.id);
   const order = orderService.getOrderById(id);
   if (!order) {
-    return res.status(404).json({
-      timestamp: new Date().toISOString(),
-      status: 404,
-      error: "Not Found",
-    });
+    errorResponse(res, 404, "Not Found", `Order with id ${id} not found`);
+    return;
   }
   res.status(200).json(order);
 });

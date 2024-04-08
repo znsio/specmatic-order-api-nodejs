@@ -1,6 +1,7 @@
 const express = require("express");
 const { z } = require("zod");
 const productService = require("../services/productService");
+const errorResponse = require("../util/errorResponse");
 
 const router = express.Router();
 
@@ -23,7 +24,8 @@ router.get("/", async (req, res) => {
   const { name, type } = searchProductParser.parse(req.query);
 
   if (name === "unknown" && type === "") {
-    return res.status(500).json("unknown");
+    res.status(500).json("unknown");
+    return;
   }
 
   const products = await productService.searchProducts(name, type);
@@ -41,11 +43,8 @@ router.get("/:id", async (req, res) => {
   const product = productService.getProductById(Number(id));
 
   if (!product) {
-    res.status(404).json({
-      timestamp: new Date().toISOString(),
-      status: 404,
-      error: "Not Found",
-    });
+    errorResponse(res, 404, "Not Found", `Product with id ${id} not found`);
+    return;
   }
   res.status(200).json(product);
 });
@@ -55,12 +54,8 @@ router.delete("/:id", async (req, res) => {
   const product = productService.getProductById(Number(id));
 
   if (!product) {
-    res.status(404).json({
-      timestamp: new Date().toISOString(),
-      status: 404,
-      error: "Not Found",
-      path: req.path,
-    });
+    errorResponse(res, 404, "Not Found", `Product with id ${id} not found`);
+    return;
   }
   res.status(200).contentType("text/plain").send("");
 });
@@ -74,12 +69,8 @@ router.post("/:id", async (req, res) => {
     inventory,
   });
   if (!product) {
-    res.status(404).json({
-      timestamp: new Date().toISOString(),
-      status: 404,
-      error: "Not Found",
-      path: req.path,
-    });
+    errorResponse(res, 404, "Not Found", `Product with id ${id} not found`);
+    return;
   }
   res.status(200).contentType("text/plain").json(product);
 });
