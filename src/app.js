@@ -26,7 +26,7 @@ app.use("/orders", ordersController);
 
 app.use((err, req, res, next) => {
   if (err.status !== 400) {
-    console.log("ERROR", err);
+    console.error("ERROR", err);
     next(err);
     return;
   }
