@@ -1,24 +1,24 @@
-const product = require("../db/product");
+const productList = require("../db/productList");
 
 const productService = {
   addProduct(name, type, inventory) {
-    return product.addProduct(name, type, inventory);
+    return productList.addProduct(name, type, inventory);
   },
 
   getProductById(id) {
-    return product.getProductById(id);
+    return productList.getProductById(id);
   },
 
   searchProducts(name, type) {
-    return product.searchProducts(name, type);
+    return productList.searchProducts(name, type);
   },
 
   deleteProductById(id) {
-    return product.deleteProductById(id);
+    return productList.deleteProductById(id);
   },
 
   updateProductById(id, { name, type, inventory }) {
-    return product.updateProductById(id, {
+    return productList.updateProductById(id, {
       name,
       type,
       inventory,

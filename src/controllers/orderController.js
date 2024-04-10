@@ -6,8 +6,8 @@ const router = express.Router();
 
 router.post("/", async (req, res) => {
   const { count, productid } = req.body;
-  const order = orderService.addOrder(productid, count);
-  res.status(200).json(order);
+  const orderId = orderService.addOrder(productid, count);
+  res.status(200).json({ id: orderId });
 });
 
 router.get("/", async (req, res) => {

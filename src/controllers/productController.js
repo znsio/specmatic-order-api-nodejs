@@ -18,8 +18,8 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
   const { name, type, inventory } = req.body;
-  const product = productService.addProduct(name, type, inventory);
-  res.status(200).json(product);
+  const productId = productService.addProduct(name, type, inventory);
+  res.status(200).json({ id: productId });
 });
 
 router.get("/:id", async (req, res) => {
