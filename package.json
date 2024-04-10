@@ -8,15 +8,12 @@
     "startWithDeps": "npm run startDepsAndWait && npm start",
     "startDepsAndWait": "npm run startDeps & sleep 10",
     "startDeps": "cross-env SPECMATIC_LOG_LEVEL=debug specmatic stub --port 9000 & specmatic kafka",
-    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules NODE_NO_WARNINGS=1 node ./node_modules/jest/bin/jest.js --collectCoverage --detectOpenHandles",
-    "test-ci": "cross-env SPECMATIC_LOG_LEVEL=debug DEBUG=specmatic-order-api-nodejs:* npm run test",
-    "test-ci-no-debug": "cross-env npm run test",
-    "test-generative": "cross-env SPECMATIC_GENERATIVE_TESTS=true SPECMATIC_LOG_LEVEL=debug DEBUG=specmatic-order-api-nodejs:* npm run test",
+    "test": "cross-env SPECMATIC_GENERATIVE_TESTS=true SPECMATIC_LOG_LEVEL=debug NODE_OPTIONS=--experimental-vm-modules NODE_NO_WARNINGS=1 node ./node_modules/jest/bin/jest.js --collectCoverage --detectOpenHandles",
     "prepare": "husky",
     "lint": "eslint .",
     "prettier": "prettier --check .",
-    "pre-commit": "npm run lint && npm run prettier && npm run test-ci",
-    "pre-push": "npm run lint && npm run prettier && npm run test-ci"
+    "pre-commit": "npm run lint && npm run prettier && npm run test",
+    "pre-push": "npm run lint && npm run prettier && npm run test"
   },
   "dependencies": {
     "axios": "^1.6.8",
