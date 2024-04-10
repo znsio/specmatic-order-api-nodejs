@@ -5,9 +5,6 @@
   "scripts": {
     "start": "DEBUG=specmatic-order-api-nodejs:* node ./src/bin/www",
     "dev": "nodemon DEBUG=specmatic-order-api-nodejs:* node ./src/bin/www",
-    "startWithDeps": "npm run startDepsAndWait && npm start",
-    "startDepsAndWait": "npm run startDeps & sleep 10",
-    "startDeps": "cross-env SPECMATIC_LOG_LEVEL=debug specmatic stub --port 9000 & specmatic kafka",
     "test": "cross-env SPECMATIC_GENERATIVE_TESTS=true SPECMATIC_LOG_LEVEL=debug NODE_OPTIONS=--experimental-vm-modules NODE_NO_WARNINGS=1 node ./node_modules/jest/bin/jest.js --collectCoverage --detectOpenHandles",
     "test-happy-path": "cross-env SPECMATIC_LOG_LEVEL=debug NODE_OPTIONS=--experimental-vm-modules NODE_NO_WARNINGS=1 node ./node_modules/jest/bin/jest.js --collectCoverage --detectOpenHandles",
     "prepare": "husky",
