@@ -1,29 +1,17 @@
 const express = require("express");
-const { z } = require("zod");
 const orderService = require("../services/orderService");
 const errorResponse = require("../util/errorResponse");
 
 const router = express.Router();
 
-const searchOrderParser = z.object({
-  id: z.number().optional(),
-  status: z.enum(["pending", "fulfilled", "cancelled"]).optional(),
-});
-
-const addOrderParser = z.object({
-  status: z.enum(["pending", "fulfilled", "cancelled"]),
-  count: z.number(),
-  productid: z.number(),
-});
-
 router.post("/", async (req, res) => {
-  const { count, productid } = addOrderParser.parse(req.body);
+  const { count, productid } = req.body;
   const order = orderService.addOrder(productid, count);
   res.status(200).json(order);
 });
 
 router.get("/", async (req, res) => {
-  const { id, status } = searchOrderParser.parse(req.query);
+  const { id, status } = req.query;
 
   if (!id && !status) {
     const orders = orderService.getAllOrders();
@@ -47,7 +35,7 @@ router.get("/:id", async (req, res) => {
 
 router.post("/:id", async (req, res) => {
   const id = parseInt(req.params.id);
-  const { status, count, productid } = addOrderParser.parse(req.body);
+  const { status, count, productid } = req.body;
   orderService.updatedOrderById(id, {
     productid,
     count,

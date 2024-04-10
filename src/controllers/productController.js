@@ -1,27 +1,11 @@
 const express = require("express");
-const { z } = require("zod");
 const productService = require("../services/productService");
 const errorResponse = require("../util/errorResponse");
 
 const router = express.Router();
 
-const idParser = z.object({
-  id: z.string(),
-});
-
-const searchProductParser = z.object({
-  name: z.string().optional(),
-  type: z.string().optional(),
-});
-
-const addProductParser = z.object({
-  name: z.string(),
-  type: z.string(),
-  inventory: z.number(),
-});
-
 router.get("/", async (req, res) => {
-  const { name, type } = searchProductParser.parse(req.query);
+  const { name, type } = req.query;
 
   if (name === "unknown" && type === "") {
     res.status(500).json("unknown");
@@ -39,7 +23,7 @@ router.post("/", async (req, res) => {
 });
 
 router.get("/:id", async (req, res) => {
-  const { id } = idParser.parse(req.params);
+  const { id } = req.params;
   const product = productService.getProductById(Number(id));
 
   if (!product) {
@@ -50,7 +34,7 @@ router.get("/:id", async (req, res) => {
 });
 
 router.delete("/:id", async (req, res) => {
-  const { id } = idParser.parse(req.params);
+  const { id } = req.params;
   const isDeleteSuccessful = productService.getProductById(Number(id));
 
   if (!isDeleteSuccessful) {
@@ -64,8 +48,8 @@ router.delete("/:id", async (req, res) => {
 });
 
 router.post("/:id", async (req, res) => {
-  const { id } = idParser.parse(req.params);
-  const { name, type, inventory } = addProductParser.parse(req.body);
+  const { id } = req.params;
+  const { name, type, inventory } = req.body;
   const isUpdateSuccessful = productService.updateProductById(Number(id), {
     name,
     type,
