@@ -1,28 +1,28 @@
-const orderMap = require("../db/orderMap");
+const order = require("../db/order");
 
 const orderService = {
   addOrder(productid, count) {
-    return orderMap.addOrder(productid, count);
+    return order.addOrder(productid, count);
   },
 
   searchOrders(id, status) {
-    return orderMap.searchOrders(id, status);
+    return order.searchOrders(id, status);
   },
 
   getAllOrders() {
-    return orderMap.getAllOrders();
+    return order.getAllOrders();
   },
 
   getOrderById(id) {
-    return orderMap.getOrderById(id);
+    return order.getOrderById(id);
   },
 
   updatedOrderById(id, { status, count, productid }) {
-    return orderMap.updatedOrderById(id, { status, count, productid });
+    return order.updatedOrderById(id, { status, count, productid });
   },
 
   deleteOrderById(id) {
-    return orderMap.deleteOrderById(id);
+    return order.deleteOrderById(id);
   },
 };
 
