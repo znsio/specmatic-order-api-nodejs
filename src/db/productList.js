@@ -1,56 +1,45 @@
 const Product = require("../models/Product");
 
-const productList = [];
+const productMap = new Map();
 
 const addDefaultProducts = () => {
-  const product1 = new Product(10, "XYZ Phone", "gadget", 10);
-  const product2 = new Product(20, "Gemini", "other", 10);
-  productList.push(product1, product2);
+  productMap.set(10, new Product(10, "XYZ Phone", "gadget", 10));
+  productMap.set(20, new Product(20, "Gemini", "other", 10));
 };
 
 const addProduct = (name, type, inventory) => {
-  const id = productList.length + 1;
-  const product = new Product(id, name, type, inventory);
-  productList.push(product);
-  return product.id;
+  const id = productMap.size + 1;
+  productMap.set(id, new Product(id, name, type, inventory));
+
+  return id;
 };
 
-const getProductById = (id) => {
-  return productList.find((product) => product.id === id);
-};
+const getProductById = (id) => productMap.get(id);
 
 const searchProducts = (name, type) => {
-  return productList.filter(
-    (product) => product.name === name && product.type === type,
-  );
-};
-
-const getAllProducts = () => {
-  return productList;
-};
-
-const deleteProductById = (id) => {
-  const index = productList.findIndex((product) => product.id === id);
-  if (index === -1) {
-    return false;
+  const products = [];
+  for (const product of productMap.values()) {
+    if (product.name === name && product.type === type) {
+      products.push(product);
+    }
   }
-  productList.splice(index, 1);
-  return true;
+  return products;
 };
+
+const getAllProducts = () => Array.from(productMap.values());
+
+const deleteProductById = (id) => productMap.delete(id);
 
 const updateProductById = (id, { name, type, inventory }) => {
-  const product = getProductById(id);
-  if (!product) {
+  if (!productMap.has(id)) {
     return false;
   }
-  product.name = name;
-  product.type = type;
-  product.inventory = inventory;
+  productMap.set(id, new Product(id, name, type, inventory));
   return true;
 };
 
 const clearProducts = () => {
-  productList.splice(0, productList.length);
+  productMap.clear();
 };
 
 const initiateProductList = () => {
