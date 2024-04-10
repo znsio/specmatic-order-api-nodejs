@@ -42,12 +42,12 @@ const clearProducts = () => {
   productMap.clear();
 };
 
-const initiateProductList = () => {
+const initiateProductMap = () => {
   clearProducts();
   addDefaultProducts();
 };
 
-initiateProductList();
+initiateProductMap();
 
 module.exports = {
   addDefaultProducts,

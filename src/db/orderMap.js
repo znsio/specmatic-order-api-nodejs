@@ -41,12 +41,12 @@ const updatedOrderById = (id, { productid, count, status }) => {
 
 const clearOrders = () => ordersMap.clear();
 
-const initiateOrderList = () => {
+const initiateOrderMap = () => {
   clearOrders();
   addDefaultOrders();
 };
 
-initiateOrderList();
+initiateOrderMap();
 
 module.exports = {
   addDefaultOrders,

@@ -1,24 +1,24 @@
-const productList = require("../db/productList");
+const productMap = require("../db/productMap");
 
 const productService = {
   addProduct(name, type, inventory) {
-    return productList.addProduct(name, type, inventory);
+    return productMap.addProduct(name, type, inventory);
   },
 
   getProductById(id) {
-    return productList.getProductById(id);
+    return productMap.getProductById(id);
   },
 
   searchProducts(name, type) {
-    return productList.searchProducts(name, type);
+    return productMap.searchProducts(name, type);
   },
 
   deleteProductById(id) {
-    return productList.deleteProductById(id);
+    return productMap.deleteProductById(id);
   },
 
   updateProductById(id, { name, type, inventory }) {
-    return productList.updateProductById(id, {
+    return productMap.updateProductById(id, {
       name,
       type,
       inventory,
