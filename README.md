@@ -13,8 +13,4 @@ The open api contract for the services is defined in the [Specmatic Central Cont
 
 ## Running the tests
 
-Run `npm run test-ci` to run the tests
-
-## Running the Generative Tests
-
-Run `npm run test-generative` to run the generative tests
+Run `npm run test` to run the tests
