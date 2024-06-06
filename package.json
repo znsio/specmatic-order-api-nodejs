@@ -37,6 +37,6 @@
     "nodemon": "^3.1.0",
     "prettier": "3.2.5",
     "specmatic-beta": "github:znsio/specmatic-node-beta#0.6.0",
-    "supertest": "^6.3.4"
+    "supertest": "^7.0.0"
   }
 }
