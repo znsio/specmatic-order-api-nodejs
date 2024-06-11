@@ -1,20 +1,20 @@
 const order = require("../db/order");
 
 const orderService = {
-  addOrder(productid, count) {
-    return order.addOrder(productid, count);
-  },
-
-  searchOrders(id, status) {
-    return order.searchOrders(id, status);
-  },
-
   getAllOrders() {
     return order.getAllOrders();
   },
 
   getOrderById(id) {
     return order.getOrderById(id);
+  },
+
+  searchOrders(productid, status) {
+    return order.searchOrders(productid, status);
+  },
+
+  addOrder(productid, count) {
+    return order.addOrder(productid, count);
   },
 
   updatedOrderById(id, { status, count, productid }) {

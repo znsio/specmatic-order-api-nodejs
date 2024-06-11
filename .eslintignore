@@ -1,6 +1,0 @@
-build/*
-coverage/*
-.specmatic/*
-dist/*
-node_modules/*
-.idea/*

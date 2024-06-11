@@ -1,4 +1,4 @@
-const http = require("http");
+const http = require("node:http");
 let app;
 
 function startAppServer(port) {
@@ -7,6 +7,7 @@ function startAppServer(port) {
     const server = http.createServer(app);
     server.listen(port);
     server.on("listening", async () => {
+      console.log(`API Server started on port ${port}`);
       resolve(server);
     });
   });
@@ -16,9 +17,10 @@ function stopAppServer(appServer) {
   return new Promise((resolve, reject) => {
     appServer.close((err) => {
       if (err) {
-        console.error(`Stopping BFF failed with ${err}`);
+        console.error(`Stopping API Server failed with ${err}`);
         reject();
       } else {
+        console.log("API Server stopped successfully");
         resolve();
       }
     });

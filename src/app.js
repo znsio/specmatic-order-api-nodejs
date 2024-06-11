@@ -2,22 +2,18 @@ const express = require("express");
 
 const productsController = require("./controllers/productController");
 const ordersController = require("./controllers/orderController");
-const bodyParser = require("body-parser");
 const OpenApiValidator = require("express-openapi-validator");
 const errorResponse = require("./util/errorResponse");
 
 const app = express();
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
 app.use(
   OpenApiValidator.middleware({
     apiSpec: "./specs/api_order_v3.yaml",
     validateRequests: true,
     validateResponses: false,
+    ignorePaths: /.*\/favicon.*/,
   }),
 );
 
@@ -27,8 +23,7 @@ app.use("/orders", ordersController);
 app.use((err, req, res, next) => {
   if (err.status !== 400) {
     console.error("ERROR", err);
-    next(err);
-    return;
+    return next(err);
   }
 
   errorResponse(

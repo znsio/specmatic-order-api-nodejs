@@ -5,64 +5,71 @@ const errorResponse = require("../util/errorResponse");
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-  const { name, type } = req.query;
-
-  if (name === "unknown" && type === "") {
-    res.status(500).json("unknown");
-    return;
-  }
-
-  const products = await productService.searchProducts(name, type);
-  res.json(products);
+  const { type } = req.query;
+  const products = productService.searchProducts(type);
+  return res.json(products);
 });
 
 router.post("/", async (req, res) => {
   const { name, type, inventory } = req.body;
   const productId = productService.addProduct(name, type, inventory);
-  res.status(200).json({ id: productId });
+  return res.status(200).json({ id: productId });
 });
 
 router.get("/:id", async (req, res) => {
-  const { id } = req.params;
-  const product = productService.getProductById(Number(id));
+  const id = Number.parseInt(req.params.id);
+  const product = productService.getProductById(id);
 
   if (!product) {
-    errorResponse(res, 404, "Not Found", `Product with id ${id} not found`);
-    return;
+    return errorResponse(
+      res,
+      404,
+      "Not Found",
+      `Product with id ${id} not found`,
+    );
   }
-  res.status(200).json(product);
-});
 
-router.delete("/:id", async (req, res) => {
-  const { id } = req.params;
-  const isDeleteSuccessful = productService.getProductById(Number(id));
-
-  if (!isDeleteSuccessful) {
-    errorResponse(res, 404, "Not Found", `Product with id ${id} not found`);
-    return;
-  }
-  res
-    .status(200)
-    .type("text/plain")
-    .send(`Successfully deleted product id: ${id}`);
+  return res.status(200).json(product);
 });
 
 router.post("/:id", async (req, res) => {
-  const { id } = req.params;
+  const id = Number.parseInt(req.params.id);
   const { name, type, inventory } = req.body;
-  const isUpdateSuccessful = productService.updateProductById(Number(id), {
+  const isUpdateSuccessful = productService.updateProductById(id, {
     name,
     type,
     inventory,
   });
   if (!isUpdateSuccessful) {
-    errorResponse(res, 404, "Not Found", `Product with id ${id} not found`);
-    return;
+    return errorResponse(
+      res,
+      404,
+      "Not Found",
+      `Product with id ${id} not found`,
+    );
   }
-  res
+  return res
     .status(200)
     .type("text/plain")
     .send(`Successfully updated product with id ${id}`);
+});
+
+router.delete("/:id", async (req, res) => {
+  const id = Number.parseInt(req.params.id);
+  const isDeleteSuccessful = productService.deleteProductById(id);
+
+  if (!isDeleteSuccessful) {
+    return errorResponse(
+      res,
+      404,
+      "Not Found",
+      `Product with id ${id} not found`,
+    );
+  }
+  return res
+    .status(200)
+    .type("text/plain")
+    .send(`Successfully deleted product id: ${id}`);
 });
 
 module.exports = router;

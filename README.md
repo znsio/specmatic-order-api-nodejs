@@ -1,16 +1,35 @@
-# Specmatic Order API Node.js
+# Specmatic Sample: Nodejs-Express Order API
 
-This is a Node.js implementation of the [Specmatic Order API](https://github.com/znsio/specmatic-order-api-java) project.
+- [Specmatic Website](https://specmatic.in)
+- [Specmatic Documentation](https://specmatic.in/documentation.html)
 
-The implementation is based on [Express](https://expressjs.com/)
+This sample project illustrates the implementation of contract-driven development and contract testing within a Nodejs(Express) application. In this context, Specmatic is utilized to function as a client, making calls to API service according to its OpenAPI specification to validate its functionality.
 
-The open api contract for the services is defined in the [Specmatic Central Contract Repository](https://github.com/znsio/specmatic-order-contracts/blob/main/in/specmatic/examples/store/api_order_v3.yaml)
+Here is the API's [contract/open api spec](https://github.com/znsio/specmatic-order-contracts/blob/main/in/specmatic/examples/store/api_order_v3.yaml) governing the interaction of the client with the product API.
 
-## Installation
+## Tech 
 
-1. Clone the repository
-2. Run `npm install` to install the dependencies
+1. Express
+2. Specmatic
+3. Jest
 
-## Running the tests
+## Setup
 
-Run `npm run test` to run the tests
+1. Install [NodeJS](https://nodejs.org/en)
+2. Install JRE 17 or later.
+
+## Install Dependencies
+
+To install all necessary dependencies for this project, navigate to the project's root directory in your terminal and execute
+
+```shell
+npm install
+```
+
+## Execute Tests and Validate Contracts with Specmatic
+
+Executing this command will initiate Specmatic and execute the tests on the Nodejs(Express) application.
+
+```shell
+npm run test
+```
