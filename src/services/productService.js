@@ -21,6 +21,10 @@ const productService = {
     return product.updateProductById(id, { name, type, inventory });
   },
 
+  updateProductImageById(id, image) {
+    return product.updateProductImage(id, image);
+  },
+
   deleteProductById(id) {
     return product.deleteProductById(id);
   },

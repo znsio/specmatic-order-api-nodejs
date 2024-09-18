@@ -72,4 +72,28 @@ router.delete("/:id", async (req, res) => {
     .send(`Successfully deleted product id: ${id}`);
 });
 
+router.put("/:id/image", async (req, res) => {
+  if (!req.files) {
+    return res.status(400).send("No image file uploaded");
+  }
+
+  const id = Number.parseInt(req.params.id);
+  const isUpdateSuccessful = productService.updateProductImageById(
+    id,
+    req.files[0],
+  );
+  if (!isUpdateSuccessful) {
+    // TODO: Add example id in openAPI Specification on order_api_v3.yaml
+    return res.json({
+      productId: id,
+      message: "Product image updated successfully",
+    });
+    // return errorResponse(res,404,"Not Found",`Product with id ${id} not found`,);
+  }
+  return res.json({
+    productId: id,
+    message: "Product image updated successfully",
+  });
+});
+
 module.exports = router;

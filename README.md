@@ -7,7 +7,7 @@ This sample project illustrates the implementation of contract-driven developmen
 
 Here is the API's [contract/open api spec](https://github.com/znsio/specmatic-order-contracts/blob/main/io/specmatic/examples/store/openapi/api_order_v3.yaml) governing the interaction of the client with the product API.
 
-## Tech 
+## Tech
 
 1. Express
 2. Specmatic
