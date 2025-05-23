@@ -36,7 +36,7 @@
     "node-fetch": "^3.3.2",
     "nodemon": "^3.1.7",
     "prettier": "^3.3.3",
-    "specmatic": "^2.10.0",
+    "specmatic": "^2.13.1",
     "specmatic-beta": "github:znsio/specmatic-node-beta#2.0.0",
     "supertest": "^7.0.0"
   }
