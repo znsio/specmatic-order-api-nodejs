@@ -43,6 +43,15 @@ jobs:
       - name: Run npm test
         run: npm run test
 
+      - name: Run Specmatic Insights Github Build Reporter
+        run: |
+          npx specmatic-insights-github-build-reporter \
+            --org-id ${{ secrets.SPECMATIC_ORG_ID }} \
+            --branch-name ${{ github.ref_name }} \
+            --repo-name ${{ github.event.repository.name }} \
+            --repo-id ${{ github.repository_id }} \
+            --repo-url ${{ github.event.repository.html_url }}
+
       - name: Upload HTML Test Report
         uses: actions/upload-artifact@v4
         with:
