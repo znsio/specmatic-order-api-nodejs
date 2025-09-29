@@ -22,8 +22,7 @@
     "debug": "^4.3.7",
     "express": "^4.21.0",
     "express-openapi-validator": "^5.3.7",
-    "globals": "^15.10.0",
-    "kafkajs": "^2.2.4"
+    "globals": "^15.10.0"
   },
   "devDependencies": {
     "@types/supertest": "^6.0.2",
@@ -36,8 +35,7 @@
     "node-fetch": "^3.3.2",
     "nodemon": "^3.1.7",
     "prettier": "^3.3.3",
-    "specmatic": "^2.22.0",
-    "specmatic-beta": "github:znsio/specmatic-node-beta#2.0.0",
+    "specmatic": "^2.24.0",
     "supertest": "^7.0.0"
   }
 }
